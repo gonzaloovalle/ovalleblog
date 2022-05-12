@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="partials/header :: head">
+    <meta charset="UTF-8">
+    <title>Result</title>
+</head>
+<body>
+    <nav th:replace="partials/navbar :: navbar"></nav>
+    <h1>You guessed: <span th:text="${guess}"></span></h1>
+    <h1>The 1st number was: <span th:text="${randomNumber1}"></span></h1>
+    <h1>The 2nd number was: <span th:text="${randomNumber2}"></span></h1>
+    <h1>The 3rd number was: <span th:text="${randomNumber3}"></span></h1>
+    <h1>The 4th number was: <span th:text="${randomNumber4}"></span></h1>
+
+    <h3 th:text="${message}"></h3>
+
+    <a href="/roll-dice">Play again!</a>
+    <div th:replace="partials/scripts :: assets"></div>
+    <footer th:replace="partials/footer :: footer"></footer>
+</body>
+</html>
