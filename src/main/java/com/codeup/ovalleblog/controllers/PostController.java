@@ -21,14 +21,8 @@ public class PostController {
 
     @GetMapping("/posts")
     public String index(Model model) {
-        Post post1 = new Post("Hello World", "Hello World", 1);
-        Post post2 = new Post("Second Post", "This is the second post", 2);
-        Post post3 = new Post("Third Post", "Here is the third post", 3);
+        List<Post> postList = postDao.findAll();
 
-        List<Post> postList = new ArrayList<>();
-        postList.add(post1);
-        postList.add(post2);
-        postList.add(post3);
 
         model.addAttribute("title", "All Posts");
         model.addAttribute("posts", postList);
@@ -38,7 +32,7 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     public String individualPost(@PathVariable int id, Model model) {
-        Post post = new Post("Hello There", "General Kenobi!", 1);
+        Post post = postDao.getById(id);
 
         model.addAttribute("post", post);
 
