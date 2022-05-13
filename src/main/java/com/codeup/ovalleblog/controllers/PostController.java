@@ -1,17 +1,23 @@
-package com.codeup.ovalleblog;
+package com.codeup.ovalleblog.controllers;
 
+import com.codeup.ovalleblog.dao.PostRepository;
+import com.codeup.ovalleblog.models.Post;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class PostController {
+
+    private final PostRepository postDao;
+
+    public PostController(PostRepository postDao) {
+        this.postDao = postDao;
+    }
+
 
     @GetMapping("/posts")
     public String index(Model model) {
@@ -40,14 +46,18 @@ public class PostController {
     }
 
     @GetMapping("/posts/create")
-    @ResponseBody
-    public String createForm() {
-        return "view the form for creating a post";
+    public String createForm(Model model) {
+        model.addAttribute("post", new Post());
+        return "posts/create";
     }
 
     @PostMapping("/posts/create")
-    @ResponseBody
-    public String create() {
-        return "create a new post";
+    public String create(@RequestParam(name = "post-title") String title, @RequestParam(name = "post-body") String body) {
+        Post post = new Post();
+        post.setTitle(title);
+        post.setBody(body);
+
+        postDao.save(post);
+        return "redirect:/posts";
     }
 }

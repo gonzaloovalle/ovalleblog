@@ -1,4 +1,4 @@
-package com.codeup.ovalleblog;
+package com.codeup.ovalleblog.models;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
